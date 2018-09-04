@@ -69,7 +69,7 @@ def bin_values(raw_range, dict_of_values, val):
                 cont = False
             elif counter != len(raw_range):
                 if start <= val and val < stop :
-                    print("added")
+                    #print("added")
                     dict_of_values = add_value(dict_of_values,counter,val)
                     cont = False
             elif counter == len(raw_range)-1:
@@ -108,12 +108,13 @@ def ks_body_parser(body):
         gene_obj = Ks_gene(ks, ka, org_a_chrom, org_a_region, org_a_start, org_a_stop,
                                    org_b_chrom, org_b_region, org_b_start, org_b_stop,
                           evalue, accumulative_score)
-        print(gene_obj.ka_is_float,gene_obj.ka,gene_obj.ks,gene_obj.org_a_stop)
+        #print(gene_obj.ka_is_float,gene_obj.ka,gene_obj.ks,gene_obj.org_a_stop)
+        return_list.append(gene_obj)
     return return_list
 
 
 
-def region_to_bed(gene_list, cutoff=2):
+def region_to_bed(gene_list,counter, cutoff=2.0):
     ks = []
     ka = []
     bed_regions = []
@@ -122,12 +123,12 @@ def region_to_bed(gene_list, cutoff=2):
             and gene.ks <= cutoff and gene.ka <= cutoff :
             ks.append(gene.ks)
             ka.append(gene.ka)
-    print(gene_list)
+    #print(gene_list)
     as1 = dc_parse.region_parser(gene_list[0].org_a_region) # regions are unchanged in ks/ka files.
     as2 = dc_parse.region_parser(gene_list[-1].org_a_region)
     bs1 = dc_parse.region_parser(gene_list[0].org_b_region) # regions are unchanged in ks/ka files.
     bs2 = dc_parse.region_parser(gene_list[-1].org_b_region)
-    print(ks,ka)
+    #print(ks,ka)
     for s1,s2 in zip([as1,bs1],[as2,bs2]):
         if s1.start > s2.start:
             start = s2.start -1
@@ -135,20 +136,27 @@ def region_to_bed(gene_list, cutoff=2):
         else:
             start = s1.start - 1
             stop = s2.stop
-        out_bed = '{chrom}\t{start}\t{stop}\t{num_genes}\t{num_measured}\t{mean_ks}\t{mean_ka}\t{raw_values_ka}\t\
-        {raw_values_ks}\n'.format(
+        if len(ka) >0 and len(ks)>0:
+            mean_ka = np.mean(ka)
+            mean_ks = np.mean(ks)
+        else:
+            mean_ka = 'NA'
+            mean_ks = 'NA'
+        out_bed = '{chrom}\t{start}\t{stop}\t{pair_id}_id\t{num_genes}\t{num_measured}\t{mean_ks}\t{mean_ka}\t{raw_values_ks}\t{raw_values_ka}\n'.format(
             chrom=s1.chrom,
             start=start,
             stop=stop,
             num_genes=len(gene_list),
             num_measured=len(ka),
-            mean_ka=np.mean(ka),
-            mean_ks=np.mean(ks),
+            mean_ka=mean_ka,
+            mean_ks=mean_ks,
             raw_values_ka="^".join([str(x) for x in ka]),
-            raw_values_ks = "^".join([str(x) for x in ks])
+            raw_values_ks = "^".join([str(x) for x in ks]),
+            pair_id=counter
         )
         bed_regions.append(out_bed)
-        print(out_bed)
+        #print(out_bed)
+    return bed_regions
 
 
 
@@ -157,7 +165,7 @@ def region_to_bed(gene_list, cutoff=2):
 
 
 
-def ks_bed_produce():
+def ks_bed_produce(in_file,out,cutoff):
     """
     ks files here have 3 sections per syntenic block that we can extract using by stepping through the parsed
     file by 3 based on splitting on the '#'. There is one idiosyncrasy, the first line of file does not fit this pattern.
@@ -166,21 +174,28 @@ def ks_bed_produce():
     a fatnode on local server.
     :return:
     """
-    f = open('/home/ndh0004/code/coge_tools/test_data/test_CvC_gcoords.ks')
+
+    f = open(in_file,'r')
     ks_file = f.read()
     ks_file = ks_file.rstrip("\n").split('#')[2::] # we don't really want first line which is non-repeated comment.
-    # step through by threes.
+    # step through by twos
+    regions = [['#chom\tstart\tstop\tpair_id\tnum_genes\tnum_kska_genes\tmean_ks\tmean_ka\traw_ks\traw_ka\n'],]
     counter = 1
     for block, body in zip( ks_file[0::2],ks_file[1::2]):
         ks_syn_block = ks_block_parser(block)
         if ks_syn_block.ka_is_float == True : # right now concentrating on only blocks containing ks/ka values.
             body = body.rstrip("\n").split("\n")[1:] # we are dropping the comment line with column names.
             gene_list = ks_body_parser(body)
-            region_to_bed(gene_list)
+            #print(gene_list,body,block)
+            regions.append(region_to_bed(gene_list,counter,cutoff=cutoff))
 
 
-            print(block)
+            #print(block)
         counter += 1
+    fout = open(out,'w')
+    for region in regions:
+        fout.write("".join(region))
+    fout.close()
 
 
 
@@ -189,4 +204,29 @@ def ks_bed_produce():
 
 
 if __name__ == '__main__':
-    ks_bed_produce()
+    import argparse
+    parser = argparse.ArgumentParser(description="""
+    This script takes ks/ka file from CoGe tools and parsers it into bed regions. There is a cutoff parameter. To limit\
+     the number ks/ka values. Since these can become unreasonably high. The mean ks/ka values are output in tsv form \
+      for downstream parsing""")
+    parser.add_argument('-i', '--infile',
+                        help='dc file for ks/ka',
+                        required=True,
+                        type=str,
+                        dest='in_file')
+    parser.add_argument('-o', '--outfile',
+                        required=True,
+                        type=str,
+                        dest="out")
+    parser.add_argument('-c','--cut_off',
+                        help='highest acceptable value for ks/ka. default == 2.0',
+                        required=False,
+                        default=2.0,
+                        type=float,
+                        dest='cut_off')
+    argv = parser.parse_args()
+
+    in_file = argv.in_file
+    out = argv.out
+    cutoff = argv.cut_off
+    ks_bed_produce(in_file,out, cutoff)
