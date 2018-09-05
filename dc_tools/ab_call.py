@@ -115,7 +115,7 @@ def calculate_and_write(region_call_tally, out_pre):
         cr['designation'] = 'ambig' # we set this a default value until it is explicity called.
         cr['chrom_level_call'] = 'Null'
     #strong calls
-            if 'B' not in cr['call'] and \
+        if 'B' not in cr['call'] and \
             'A' in cr['call'] and \
             cr['ambig_call'] == 0 :
             cr['designation'] = 'strong'
@@ -158,8 +158,8 @@ def calculate_and_write(region_call_tally, out_pre):
             chrom=chrom,
             A=cr['A'],
             B=cr['B'],
-            fa=g_fraction_a,
-            fb=g_fraction_b,
+            fa=(float(cr['A']/(float(cr['A'])+float(cr['B'])))),
+            fb=(float(cr['B']/(float(cr['A'])+float(cr['B'])))),
             call=cr['chrom_level_call'],
             des=cr['designation'],
             a=cr['a'],
