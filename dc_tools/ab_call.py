@@ -223,4 +223,3 @@ if __name__ == '__main__':
     min_p = argv.pmin
     region = ab_call(in_file)
     calculate_and_write(region,out )
-    
