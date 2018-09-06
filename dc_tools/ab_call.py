@@ -105,7 +105,7 @@ def calculate_and_write(region_call_tally, out_pre):
     f_all = open(chrom_out,'w')
     f_conf = open(chrom_conf, 'w')
     f_prov = open(chrom_prov,'w')
-    header = '#call\tcall_qual\tnum_good_reg\tnum_ambig_reg\tchrom\tA_gene_calls\tB_gene_calls\tfrac_A\tfrac_B\tambig_a\tambig_b\n'
+    header = '#call\tcall_qual\tnum_good_reg\tnum_ambig_reg\tchrom\tA_gene_calls\tB_gene_calls\tambig_a\tambig_b\n'
     for out_file in [f_ambig,f_all,f_conf,f_prov]:
         out_file.write(header)
 #iterate over chrom calls and write results
@@ -154,12 +154,10 @@ def calculate_and_write(region_call_tally, out_pre):
             cr['designation'] = 'ambig'
             cr['chrom_level_call'] = 'ambig'
     #create outstring for writing
-        out_string = '{call}\t{des}\t{sc}\t{ac}\t{chrom}\t{A}\t{B}\t{fa}\t{fb}\t{a}\t{b}\n'.format(
+        out_string = '{call}\t{des}\t{sc}\t{ac}\t{chrom}\t{A}\t{B}\t{a}\t{b}\n'.format(
             chrom=chrom,
             A=cr['A'],
             B=cr['B'],
-            fa=(float(cr['A']/(float(cr['A'])+float(cr['B'])))),
-            fb=(float(cr['B']/(float(cr['A'])+float(cr['B'])))),
             call=cr['chrom_level_call'],
             des=cr['designation'],
             a=cr['a'],
