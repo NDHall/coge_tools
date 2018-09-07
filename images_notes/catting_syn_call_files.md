@@ -125,7 +125,7 @@ only twice. We also see that calls are consistent, but this expectation is alrea
 
 
 
-[diagram]:/home/ndh0004/code/coge_tools/images_notes/clean_hw_syn_diag.jpg "hand drawn diagram"
+[diagram]:clean_hw_syn_diag.jpg "hand drawn diagram"
 
 
 
