@@ -39,7 +39,25 @@ def create_merged_bedobject(beds,distance):
 
     return bed_objs
 
+def filter_bed(bed_obj, keep_bed, exclude_bed):
+    new_bed = []
+    bed_string = "\n".join(bed_obj)
+    bed_obj = pybedtools.BedTool(bed_string, from_string=True)
+    bed_obj = bed_obj.sort()
+    if keep_bed is not None:
+        #keep_bed = pybedtools.BedTool(keep_bed)
+        bed_obj = bed_obj.intersect(keep_bed,
+                                    wa=True)
+    if exclude_bed is not None:
+        bed_obj = bed_obj.intersect(exclude_bed,
+                                    wa=True,
+                                    v=True,
+                                    r=0.90) # this is hard coded here, because it will be likely that exclude blocks
+                                            # occur within larger legimtimate blocks. If we don't make sure that the
+                                            # overlap is indicative a good match than we will lose a lot of good data.
 
+    new_bed = ["\t".join([l[0],l[1],l[2]]) for l in bed_obj]
+    return new_bed
 
 def check_for_overlap(raw_beds,beds,distance):
     prev_vals =[]
@@ -106,11 +124,13 @@ def sort_beds(beds,out_stem):
 
 
 
-def parse_regions(in_file,out_stem):
+def parse_regions(in_file,out_stem,keep_bed,exclude_bed):
     f = open(in_file)
     lines = f.read()
     lines = lines.rstrip("\n").split("\n")
     raw_beds = sep_valid_beds(lines)
+    raw_beds['A'] = filter_bed(raw_beds['A'],keep_bed,exclude_bed)
+    raw_beds['B'] = filter_bed(raw_beds['B'], keep_bed, exclude_bed)
     beds = create_merged_bedobject(raw_beds,600000)
     beds, distance = check_for_overlap(raw_beds, beds, 600000)
     sort_beds(beds,out_stem)
@@ -120,5 +140,36 @@ def parse_regions(in_file,out_stem):
 
 
 if __name__ == '__main__':
-    parse_regions('/home/ndh0004/code/coge_tools/test_data/all_region_call.tsv',
-                  '/home/ndh0004/code/coge_tools/test_out/bedtest_')
+    import argparse
+
+    parser = argparse.ArgumentParser(description="""
+    This script takes a series of region calls and filters to include targeted bed regions or exclude targeted bed 
+    regions. 
+    """)
+    parser.add_argument('-i','--infile',
+                        help='region_calls file produced by ab_call.py',
+                        required=True,
+                        type=str,
+                        dest='in_file')
+    parser.add_argument('-o','--outfile',
+                        required=True,
+                        type=str,
+                        dest="out")
+    parser.add_argument('-k','--regions_to_keep',
+                        required=False,
+                        default=None,
+                        type=str,
+                        dest='keep')
+    parser.add_argument('-e', '--regions_to_exclude',
+                        required=False,
+                        default=None,
+                        type=str,
+                        dest='exclude')
+    argv = parser.parse_args()
+
+
+
+    parse_regions(argv.in_file,
+                  argv.out,
+                  argv.keep,
+                  argv.exclude)

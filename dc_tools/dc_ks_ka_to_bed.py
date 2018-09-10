@@ -210,7 +210,7 @@ if __name__ == '__main__':
      the number ks/ka values. Since these can become unreasonably high. The mean ks/ka values are output in tsv form \
       for downstream parsing""")
     parser.add_argument('-i', '--infile',
-                        help='dc file for ks/ka',
+                        help='dc file for ks ka comparisons',
                         required=True,
                         type=str,
                         dest='in_file')
@@ -219,7 +219,7 @@ if __name__ == '__main__':
                         type=str,
                         dest="out")
     parser.add_argument('-c','--cut_off',
-                        help='highest acceptable value for ks/ka. default == 2.0',
+                        help='highest acceptable value for ks or ka. default == 2.0',
                         required=False,
                         default=2.0,
                         type=float,
