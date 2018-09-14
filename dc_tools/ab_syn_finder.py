@@ -3,6 +3,9 @@ This set of functions will link all hits together into a network.
 """
 
 import dc_parse
+import dc_links_to_net
+import networkx as nx
+import matplotlib.pyplot as plt
 
 def make_bed_from_node_name(node_name):
     """
@@ -55,6 +58,8 @@ def convert_bed4_raw_ent_to_dict(raw_ent):
     # now split bed4 comment.
     pers_genes = pers_genes.split("^")
     #print (pers_genes[1],pers_genes[2]) # where we have put percent id and genes.
+    mean = pers_genes[0]
+    ret_dict['mean'] = float(mean)
     pers = [float(x) for x in  pers_genes[1].split(",")]
     genes = [x for x in pers_genes[2].split(",")]
     for per,gene in zip(pers,genes):
@@ -154,9 +159,11 @@ def compare_genes(id_dict, pybed):
          # print(b_region)
          out_write_per_gene, out_write_by_bed = ['Null', 'Null']
          if b_region_id not in tested:
+             print(b_region_id) # all 3 are correctly spit out.
              chrom, start, stop = make_bed_from_node_name(b_region_id)
              b_region = dc_parse.create_pybed3(chrom, start, stop)
              overlaps = b_region.intersect(pybed, wo=True, )
+             print(len(overlaps))
              tested.append(b_region_id)
 
              # this block limits number of hits to 2.
@@ -231,8 +238,50 @@ def ab_syn_finder_main(tmp_dir,out_file_prefix, in_file):
     """
 
     id_dict, pybed = parse_self_vs_parent_for_linkage(tmp_dir,in_file,out_file_prefix)
-    final_out_per_bed, final_out_per_gene =  compare_genes(id_dict=id_dict, pybed=pybed)
-    write_final_files(final_out_per_bed,final_out_per_gene,tmp_dir,out_file_prefix)
+
+    pybed3 = dc_links_to_net.pybed4_convert_pybed3(pybed)
+    intersect_bed = pybed3.intersect(pybed3,
+                                     wo=True)
+    syn_graph = nx.Graph()
+    for idp in id_dict:
+        for ida in id_dict[idp]:
+            if syn_graph.has_edge(idp,ida) is False:
+                syn_graph.add_edge(idp,ida)
+                syn_graph.node[idp]['name'] = 'p' # for parent genome
+                syn_graph.node[ida]['name'] = 'a' # for the ab genome candiate.
+
+                # this is an undirected graph.
+
+    syn_graph = dc_parse.add_intersect_to_syn_graph(syn_graph, intersect_bed)
+    labels = dict((n,d['name']) for n,d in syn_graph.nodes(data=True))
+    nx.draw(syn_graph,labels=labels)
+    plt.show()
+    for sg in nx.connected_component_subgraphs(syn_graph):
+        print(type(sg))
+        cyc = nx.cycle_basis(sg.to_undirected())
+        print(cyc)
+        if len(cyc) ==0 :
+            parent_nodes =[]
+            for n in sg.node :
+                if sg.node[n]['name'] == 'p':
+                    print("found_nodes",sg[n],n)
+                    print(type(n))
+                else :
+                    pass
+
+
+                print(n)
+
+            #eb = nx.edge_boundary(sg,)
+            #print(eb)
+
+            bed_list = []
+            print(sg)
+            for node in sg:
+                bed_list.append(make_bed_from_node_name(str(node)))
+            print(bed_list)
+    #final_out_per_bed, final_out_per_gene =  compare_genes(id_dict=id_dict, pybed=pybed)
+    #write_final_files(final_out_per_bed,final_out_per_gene,tmp_dir,out_file_prefix)
 
 
 def message(case):
