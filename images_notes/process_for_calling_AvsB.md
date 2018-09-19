@@ -40,7 +40,12 @@ each syntenic block.
       ndh0004@IorekByrnison:~/code/coge_tools/test_out$
    
 5. Now run ab_caller.py 
+```bash
+(venv_btools) ndh0004@IorekByrnison:~/code/coge_tools$ python dc_tools/ab_call.py  \
+                                                      -i data_out/51576_52024_qac_ks_sep19a_abcalls.tsv  \
+                                                      -o data_out/51576_52024_qac_ks_sep19a_calls -c 10
 
+```
 
 
 

@@ -19,11 +19,7 @@ def sep_valid_beds(lines):
             stop=stop )
         if bed_string not in beds[call]:
             beds[call].append(bed_string)
-    assert len(beds['A']) == len(beds['B']) , """
-    Malformed file. File must contain equal number of A and B calls since to call an A you must have a B.
-    """
-    for X in beds:
-        print (X)
+
     return beds
 
 
