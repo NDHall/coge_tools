@@ -24,15 +24,24 @@ each syntenic block.
 4. If you have a a good sense of where the cutoff exists in the data, or if you have used qac, calling by percent id 
     alone will yield more hits. Here we compare the use of `strict_ks = False` to `strict_ks = True`.
     ```bash
+       #qac == False
        ndh0004@IorekByrnison:~/code/coge_tools/test_out$ awk '{print $4}' bog_sep18_abcalls.tsv |\
                                                          sort | uniq -c |awk '{print $1}' | sort | uniq -c | sort -n 
        10409 2 # number of anchors that occur 2 times
+    
+       #qac == True
+    (venv_btools) ndh0004@IorekByrnison:~/code/coge_tools/data_out$ awk '{print $4}'  51576_52024_qac_ks_sep19_abcalls.tsv | sort | uniq -c |awk '{print $1}' | sort | uniq -c | sort -n 
+       6398 2
+ 
+       #qac == False and strict_ks == True
     ndh0004@IorekByrnison:~/code/coge_tools/test_out$ awk '{print $4}' bog_sep18_strict_abcalls.tsv |\
                                                        sort | uniq -c |awk '{print $1}' | sort | uniq -c | sort -n 
        2515 2 # number of anchors that occur 2 times
-      ndh0004@IorekByrnison:~/code/coge_tools/test_out$ 
-    ```  
-5. 
+      ndh0004@IorekByrnison:~/code/coge_tools/test_out$
+   
+5. Now run ab_caller.py 
+
+
 
 
 

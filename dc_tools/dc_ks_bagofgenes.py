@@ -257,10 +257,9 @@ def parse_ks(infile,pid_cutoff,ks_cutoff,syn_len_cutoff, out_file, call,parent='
                 # write to call file
                 for called_g in [n,u]:
                     region = called_g.ctregion.replace('\t','_')
-                    outstring = '{r}\t{p}\t{c}\t{g}\n'.format(
+                    outstring = '{r}\t{p}\t{g}\n'.format(
                     r=region,
                     c=called_g.call,
-                    p=called_g.perid,
                     g=called_g.pgene
                 )
                     fout_calls.write(outstring)
