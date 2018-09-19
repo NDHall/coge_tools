@@ -56,7 +56,7 @@ def filter_bed(bed_obj, keep_bed, exclude_bed):
     return new_bed
 
 def check_for_overlap(raw_beds,beds,distance):
-    prev_vals =[]
+    prev_vals =[beds,distance]
     intersect_len = len(beds['A'].intersect(beds['B'], wo=True))
     while intersect_len == 0 and distance <=20000000:
         print(intersect_len, distance)
@@ -127,8 +127,8 @@ def parse_regions(in_file,out_stem,keep_bed,exclude_bed):
     raw_beds = sep_valid_beds(lines)
     raw_beds['A'] = filter_bed(raw_beds['A'],keep_bed,exclude_bed)
     raw_beds['B'] = filter_bed(raw_beds['B'], keep_bed, exclude_bed)
-    beds = create_merged_bedobject(raw_beds,600000)
-    beds, distance = check_for_overlap(raw_beds, beds, 600000)
+    beds = create_merged_bedobject(raw_beds,1)
+    beds, distance = check_for_overlap(raw_beds, beds, 1)
     sort_beds(beds,out_stem)
 
 
