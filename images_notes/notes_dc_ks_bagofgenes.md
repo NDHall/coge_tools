@@ -81,8 +81,10 @@ I have now updated
 `parse_ks(infile,pid_cutoff,ks_cutoff,syn_len_cutoff,out_file,call=call,strict_ks=strict_ks, qac=qac)`
 to include variable call. Call provides a default label in the 1st column
 this will allow us to label multiple files for concatenation. At some 
-point adding a seperate file column might be useful. But at this point we will 
+point adding a seperate file column might be useful. But at this point, we will 
 avoid doing that. 
-call update was successfull as shown by the fact the number of calls don't
+Call update was successfull as suggested by the fact the number of calls don't
 change just their labels.  The diffs of whole files change because the 
-I changed parameters for calculating `meanks`.
+I changed parameters for calculating `meanks`. 
+
+

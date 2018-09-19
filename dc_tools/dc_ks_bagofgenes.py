@@ -140,10 +140,7 @@ def parse_gene_list(gene_list,pid_cutoff,ks_cutoff,syn_len_cutoff,bag_of_genes_d
             meanperid=0
         )
         baglet_of_genes.append(classy_gene)
-    #add num genes to class
-    #add num ks genes used.
-    #add num ka genes used.
-    #add num perid genes used.
+
     ka_len = None
     perid_len = None
     #print('ks vals:',ks_vals)
@@ -294,7 +291,7 @@ if __name__ == '__main__':
              '/51576_52024.CDS-CDS.last.tdd10.cs0.filtered.dag.all' \
              '.go_D20_g10_A5.aligncoords.Dm0.ma1.qac2.1.50.gcoords.ks'
     pid_cutoff = 90.0
-    ks_cutoff = 2
+    ks_cutoff = 2.0
     syn_len_cutoff = 5
     strict_ks = False
     qac = True
