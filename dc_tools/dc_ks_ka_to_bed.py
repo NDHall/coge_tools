@@ -1,5 +1,8 @@
 #ToDo: create new ks/ka syn class and region class
-import dc_parse
+try:
+    import dc_parse
+except:
+    import dc_tools.dc_parse as dc_parse
 import numpy as np
 class Ks_syn(dc_parse.Syn):
 

@@ -64,7 +64,7 @@ class Region:
         self.start = int(start)
         self.stop = int(stop)
         self.gene = gene
-        self.orientation = orientation
+        self.orientation = int(orientation)
         self.seq_type = seq_type
         self.score1 = int(score1)
         self.score2 = float(score2)
