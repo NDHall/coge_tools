@@ -239,6 +239,7 @@ def create_or_append_gff_feature(classy_gene,gff_dict,chrom_len_dict):
     :return:dictionaries that will be used for creating gff file.
     """
     ct_chrom, ct_start, ct_stop = classy_gene.ctregion.split('\t')
+
     seq = SpoofSeq("ACTG")
     rec = SeqRecord(seq, ct_chrom)
     qualifiers = {"source": "prediction", "score": 10.0, "other": [classy_gene.ptregion.replace('\t', '_')],
@@ -429,10 +430,12 @@ def parse_ks(infile,pid_cutoff,ks_cutoff,syn_len_cutoff, out_file,
                     n.call = 'A'
                     u.call = 'B'
                     A_gff_dict = create_or_append_gff_feature_AB_linkage(n, u, A_gff_dict, chrom_lens)
+                    B_gff_dict = create_or_append_gff_feature_AB_linkage(u, n, B_gff_dict, chrom_lens)
                 elif n.perid < u.perid :
                     n.call = 'B'
                     u.call = 'A'
-                    B_gff_dict = create_or_append_gff_feature_AB_linkage(u, n, B_gff_dict, chrom_lens)
+                    B_gff_dict = create_or_append_gff_feature_AB_linkage(n, u, B_gff_dict, chrom_lens)
+                    A_gff_dict = create_or_append_gff_feature_AB_linkage(u, n, A_gff_dict, chrom_lens)
                 else:
                     n.call = 'ambig'
                     u.call = 'ambig'
@@ -485,7 +488,7 @@ if __name__ == '__main__':
     infile = '/home/ndh0004/code/coge_tools/test_data/ks_ivc.ks'
     infile = '/home/ndh0004/Downloads/' \
              'ks_analysis/51576_52024.CDS-CDS.last.tdd10.cs0.filtered.dag.all.go_D20_g10_A5.aligncoords.gcoords.ks'
-    out_file = '/home/ndh0004/code/coge_tools/test_out/bog_sep20_qaccall'
+    out_file = '/home/ndh0004/code/coge_tools/test_out/bog_sep24_qaccall'
     infile = '/home/ndh0004/code/coge_tools/data' \
              '/51576_52024.CDS-CDS.last.tdd10.cs0.filtered.dag.all' \
              '.go_D20_g10_A5.aligncoords.Dm0.ma1.qac2.1.50.gcoords.ks'
