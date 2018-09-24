@@ -88,7 +88,37 @@ class Gene_in_bag():
         self.pgene_orient=pgene_orient
 
 
-def parse_gene_list(gene_list,pid_cutoff,ks_cutoff,syn_len_cutoff,bag_of_genes_dict, strict_ks,call ,ref='b',cutoff=3.0):
+def parse_gene_list(gene_list,pid_cutoff,ks_cutoff,syn_len_cutoff,bag_of_genes_dict, strict_ks,
+                    call ,ref='b',cutoff=3.0):
+    """
+
+    :param gene_list: When the DAGChainer file is parsed it is split into a block(the header) and a gene_list(the body)
+                      We can do this by reading the whole DAGChainer file into memory. then splitting based on `#` then
+                      splitting resulting blocks by line breaks. in the case of ks files. gene list == body[1:] because
+                      the body comes with its own header that needs discarded.
+    :param pid_cutoff: The percent id cutoff for the mean pid of a syntenic block. I set the default in arparse object.
+                       default == 90.0 for this program. This is because we are hunting a recent AB divergence.
+    :param ks_cutoff:  maximum acceptable mean ks value for a syntenic block for a gene to be considered. This
+                       is really a bit redundant after quota align. But it can be used as a filter. Though it mostly
+                       succeeds in over-filtering the results, since ks and ka reports are not output for every gene.
+                       Even if it is calculated for every gene.
+    :param syn_len_cutoff: Minimum number of genes used a syntenic region for it to be used in calls.
+    :param bag_of_genes_dict: It is  dict of dict {gene:{'pass':[Geneinbag,...j], 'fail':[Geneinbag,...j]}  genes that
+                              pass all cutoff filters are added 'pass' else: gene is added in 'fail'.
+    :param strict_ks:   Bool if true ks_cutoff is used to filter genes that are added bag_of_genes_dict{}.
+                        default==False. I have found that calls get really sparse with ks
+    :param call:        Default value of call variabe. Useful in case call_ab is true.
+    :param ref:         This takes the parent variable. The defaut is b which corresponds the the b genome in
+                        DAGChainer output or column 2 of the DAGChainer report. Some may prefer to run SynMap with
+                        the AB ref in col 'a'. This can specified here.
+    :param cutoff:     codeml and by extension CoGe report ks values 0-inf, even though they are based on the
+                       Nei and Gojobori 1986 approach. Though this is not the exact model used proxmial to the output.
+                       Adjustments are made for models of nucleotide substitions. I have limited the max ks to 3.0 which
+                       is pretty high since without accounting for models of substition this would be max. We don't want
+                       highly different sites for this comparison.
+    :return:
+    """
+
     baglet_of_genes = []
     syn_len = len(gene_list)
     if ref == 'a':
@@ -230,11 +260,10 @@ def parse_gene_list(gene_list,pid_cutoff,ks_cutoff,syn_len_cutoff,bag_of_genes_d
 
 
 
-def create_or_append_gff_feature(classy_gene,gff_dict,chrom_len_dict):
+def create_or_append_gff_feature(classy_gene,gff_dict):
     """
-
+    This function was orginally written to take  just a single GeneinBag object and gff_dict.
     :param classy_gene: This is class Gene in Bag object
-    :param gff_dict: dictionary for creating final gff once everything is processed.
     :param chrom_len_dict: dictionary for determing lenghth of sequence.
     :return:dictionaries that will be used for creating gff file.
     """
@@ -270,10 +299,15 @@ def create_or_append_gff_feature(classy_gene,gff_dict,chrom_len_dict):
 
 def create_or_append_gff_feature_AB_linkage(classy_gene_n,classy_gene_u,gff_dict,chrom_len_dict):
     """
+    This function was written to take guess work out of adding lengths to class Seq that gff derives chrom len from.
+    It includes init of SpoofSeq("ACTG"), which is class constructed for the express purpose of overriding __len__
+    in the Seq() class. This allows us to assign an accurate length without reading the whole sequence in, which may be
+    large and unwieldy or not proximate to the analysis.
+
     :param classy_gene_u linked gene
     :param classy_gene_n: This is class Gene in Bag object
     :param gff_dict: dictionary for creating final gff once everything is processed.
-    :param chrom_len_dict: dictionary for determing lenghth of sequence.
+    :param chrom_len_dict: dictionary for deterring length of sequence.
     :return:dictionaries that will be used for creating gff file.
     """
     classy_gene = classy_gene_n
@@ -319,11 +353,21 @@ def create_or_append_gff_feature_AB_linkage(classy_gene_n,classy_gene_u,gff_dict
 
 
 def convert_gff(bog,out_file):
+    """
+    This is a simpler version of the above create_or_append_gff_feature_AB_linkage(). It does not adjust length of the
+    the output. It is a helpful template, but ended up requring too much guess work about sequence length.
+
+    :param bog: Takes bagof genes. This could be reduced several pythonic ways. Or you could call gff features on the
+                fly using create_or_append_gff_feature() to call features as the arise duing read through or qualifying.
+
+    :param out_file: handle to write gff 2
+    :return:
+    """
     chrom_len_dict = {}
     gff_dict = {}
     out_features = []
     for classy_gene in bog:
-        gff_dict, chrom_len_dict = create_or_append_gff_feature(classy_gene,gff_dict,chrom_len_dict)
+        gff_dict, chrom_len_dict = create_or_append_gff_feature(classy_gene,gff_dict)
     for chrom in gff_dict:
         rec = gff_dict[chrom][0]
         print(len(rec))
@@ -336,6 +380,33 @@ def convert_gff(bog,out_file):
 
 
 def write_dict_to_out_file(gene_dict, outfile):
+    """
+
+    :param gene_dict: this is the dictionary the gene information has been stored in 2 bags of genes.
+            {gene:{'pass':[Geneinbag,...j], 'fail':[Geneinbag,...j]} It is a dictionary of dictionaries.
+            This function writes all genes regardless of passing
+    :param outfile: The out file already open that the dictionary contents are written into.
+             g.call,
+                    g.pgene,
+                    g.ctregion, # 3 columns since it is 3 tab delimited fields
+                    g.ptregion, # 3 columns since it is 3 tab delimited fields
+                    g.perid,
+                    g.meanperid,
+                    g.ks,
+                    g.meanks,
+                    g.cgene,
+                    g.cgene_region, # 3 columns since it is 3 tab delimited fields
+                    g.pgene_region, # 3 columns since it is 3 tab delimited fields
+                    g.ka,
+                    g.meanka,
+                    g.perid_len,
+                    g.ka_len,
+                    g.ks_len,
+                    g.syn_len,
+                    g.cgene_orient, #int negative or postive
+                    g.pgene_orient  #int negative or postive
+    :return:
+    """
     all_genes = gene_dict['pass']
     if len( gene_dict['fail']) >0 :
      [ all_genes.append(x) for x in gene_dict['fail']]
@@ -363,12 +434,18 @@ def write_dict_to_out_file(gene_dict, outfile):
                     ]]
         outstring = '\t'.join(g_attrs)+'\n'
         outfile.write(outstring)
-        print(len(g_attrs))
+
 
 
 
 def get_chrom_lens(in_len):
     """
+    This is so that we can produce gff objects using biopython without loading the whole sequence into memory. We
+    can just reference the contig name and the previousy measured length. It reads an input file formatted as
+    <length>\t<contig name>\n
+    <length>\t<contig name>\n
+    ...
+
 
     :param in_len: space delimited files 'Len(int) chrom(str)\n'
     :return: dictionary { chrom : Len}
@@ -388,6 +465,33 @@ def get_chrom_lens(in_len):
 
 def parse_ks(infile,pid_cutoff,ks_cutoff,syn_len_cutoff, out_file,
              call,parent='b',strict_ks=True, call_ab=True,qac=True,in_len=None):
+    """
+
+    :param infile: This the handle for opening DAGChainer output.
+    :param pid_cutoff: Minimum percent identitty to accepth
+    :param ks_cutoff:  Maximum ks to accept.
+    :param syn_len_cutoff: Minimum number of genes required to include genes from a syntentic block.
+    :param out_file: This is a prefix that will be used for writitng out files.
+    :param call: String this is the default input if no call is made for a gene. It can be used to label
+                 species when calls are not being made.
+    :param parent: This is the col of the DAGChainer file to use as the reference 'a'==0  and 'b'==1
+    :param strict_ks: Only report calls that pass ks cutoffs. This drastically reduces call numbers.
+    :param call_ab: Bool, call ab if the run is being used to separate A and B syntentic blocks.
+    :param qac:  Was quota align used in the process if so True. This will directly affect how file is parsed.
+    :param in_len: Default == None. If not none it is the handle for a tab delimited file that has chrom lengths.
+                   These are turned into a dict of values so that we can spoof length of sequence.
+                   structure ==
+                   <length>\t<chrom name>\n
+                   <length>\t<chrom name>\n
+                   ...
+
+    :return: output 5 files
+            1. a set of _ab_gene.tsv calls.
+            2. gff of A genes as children of syntenic regions.
+            3. gff of B genes as children of syntenic regions.
+            4. gff of all genes that were eligble to be called.
+            5. _bag_of_genes.tsv. contains all the information for each gene stored in gene in bag variable.
+    """
     bag_of_genes_dict = {}
     chroms_lens = None
     f = open(infile,'r')
