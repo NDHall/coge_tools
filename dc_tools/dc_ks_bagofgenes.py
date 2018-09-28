@@ -592,12 +592,12 @@ if __name__ == '__main__':
     infile = '/home/ndh0004/code/coge_tools/test_data/ks_ivc.ks'
     infile = '/home/ndh0004/Downloads/' \
              'ks_analysis/51576_52024.CDS-CDS.last.tdd10.cs0.filtered.dag.all.go_D20_g10_A5.aligncoords.gcoords.ks'
-    out_file = '/home/ndh0004/code/coge_tools/test_out/bog_sep24_qaccall'
+    out_file = '/home/ndh0004/code/coge_tools/data_out/bog_sep24_qaccall'
     infile = '/home/ndh0004/code/coge_tools/data' \
              '/51576_52024.CDS-CDS.last.tdd10.cs0.filtered.dag.all' \
              '.go_D20_g10_A5.aligncoords.Dm0.ma1.qac2.1.50.gcoords.ks'
     pid_cutoff = 90.0
-    ks_cutoff = 2.0
+    ks_cutoff = 3.0
     syn_len_cutoff = 5
     strict_ks = False
     qac = True
