@@ -32,7 +32,9 @@ def read_bag_of_genes_classy(infile):
         perid_len, \
         ka_len, \
         ks_len, \
-        syn_len = gene
+        syn_len,\
+        cgene_orient,\
+        pgene_orient   = gene
 
         classy_gene = bog.Gene_in_bag(call=call,
                                       pgene=pgene,
@@ -62,8 +64,8 @@ def read_bag_of_genes_classy(infile):
                                       ka=ka,
                                       meanka=meanka,
                                       syn_len=syn_len,
-                                      pgene_orient=int(+1),
-                                      cgene_orient=int(+1))
+                                      pgene_orient=int(cgene_orient),
+                                      cgene_orient=int(pgene_orient))
         classy_gene.perid_len = perid_len
         classy_gene.ka_len = ka_len
         classy_gene.ks_len = ks_len

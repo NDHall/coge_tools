@@ -1,7 +1,16 @@
 ###Final calls for xo regions.
 What we want to do first is to validate the assemblies in the regions of interest.
 This can be useful for Hatekayama et al. (2018) data and for Hittalmani et al. (2017).
- 
+
+
+Analysis was run using 
+commit: b47cc18828ed91f59b041728e90eece40974efeb
+bedtools v2.25.0
+fastalength from exonerate version 2.4.0
+
+bash
+
+
 First we want to begin by getting a list of all AB contigs. 
 I have produced notes on the underlying calls we have made.
 
@@ -101,6 +110,11 @@ ndh0004@IorekByrnison:~/code/coge_tools/data_out$ ndh0004@IorekByrnison:~/code/c
  
  
  ```bash
+$ #data from new file was previously generenrated on gate using
+$ fastalength -v
+fastalength from exonerate version 2.4.0
+Using glib version 2.48.1
+Built on May 18 2016
 ndh0004@IorekByrnison:~/code/coge_tools/data_out$ awk 'OFS="\t" {print $2,$1}' ../data/new >cor_genome_sizes.txt
 ndh0004@IorekByrnison:~/code/coge_tools/data_out$ head cor_genome_sizes.txt 
 Super-Scaffold_1	2385366
@@ -163,6 +177,9 @@ ndh0004@IorekByrnison:~/code/coge_tools/data_out$ wc -l total_junction.bed
 ndh0004@IorekByrnison:~/code/coge_tools/data_out$ egrep -w Super-Scaffold_76 cor_genome_sizes.txt total_junction.bed 
 cor_genome_sizes.txt:Super-Scaffold_76	    6,443,148
 total_junction.bed:Super-Scaffold_76	0	6,069,511
+
+ndh0004@IorekByrnison:~/code/coge_tools/data_out$ git rev-parse HEAD
+b47cc18828ed91f59b041728e90eece40974efeb
 
 
 ```
