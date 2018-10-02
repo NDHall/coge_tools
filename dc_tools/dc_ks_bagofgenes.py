@@ -568,18 +568,19 @@ def parse_ks(infile,pid_cutoff,ks_cutoff,syn_len_cutoff, out_file,
     fout_calls.close()
 
     for g_dict, label in zip([A_gff_dict,B_gff_dict,gff_dict], ['A','B','Total']):
-        out_features = []
-        out_bed = '{o}_{l}.gff3'.format( o=out_file,
-                                         l=label)
-        for chrom in g_dict:
-            rec = g_dict[chrom][0]
-            print(len(rec))
-            feature_list = g_dict[chrom][1:]
-            rec.features = feature_list
-            out_features.append(rec)
+        if len(g_dict) > 0 :
+            out_features = []
+            out_bed = '{o}_{l}.gff3'.format( o=out_file,
+                                             l=label)
+            for chrom in g_dict:
+                rec = g_dict[chrom][0]
+                print(len(rec))
+                feature_list = g_dict[chrom][1:]
+                rec.features = feature_list
+                out_features.append(rec)
 
-        with open(out_bed, 'w') as out_handle:
-            GFF.write(out_features, out_handle)
+            with open(out_bed, 'w') as out_handle:
+                GFF.write(out_features, out_handle)
 
 
 
