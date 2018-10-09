@@ -115,6 +115,53 @@ def ks_body_parser(body):
         return_list.append(gene_obj)
     return return_list
 
+def non_ks_body_parser(body):
+    """
+    Here we are parsing the body and changing into a list of Ks_gene objects.
+    I want to keep this function so that it is portable. So I am willing to
+    run through the list a second time to parse out desired values.
+    :param body:
+    :return:
+    """
+    return_list = []  #
+    for gene in body:
+        org_a_chrom, org_a_region, org_a_start, org_a_stop,\
+        org_b_chrom, org_b_region, org_b_start, org_b_stop,\
+        evalue, accumulative_score = gene.split("\t")
+        gene_obj = Ks_gene(None, None, org_a_chrom, org_a_region, org_a_start, org_a_stop,
+                                   org_b_chrom, org_b_region, org_b_start, org_b_stop,
+                          evalue, accumulative_score)
+        #print(gene_obj.ka_is_float,gene_obj.ka,gene_obj.ks,gene_obj.org_a_stop)
+        return_list.append(gene_obj)
+    return return_list
+
+
+def non_ks_region_to_bed(gene_list,out_bed_list):
+    as1 = dc_parse.region_parser(gene_list[0].org_a_region) # regions are unchanged in ks/ka files.
+    as2 = dc_parse.region_parser(gene_list[-1].org_a_region)
+    bs1 = dc_parse.region_parser(gene_list[0].org_b_region) # regions are unchanged in ks/ka files.
+    bs2 = dc_parse.region_parser(gene_list[-1].org_b_region)
+    #print(ks,ka)
+    for s1,s2 in zip([as1,bs1],[as2,bs2]):
+        if s1.start > s2.start:
+            start = s2.start -1
+            stop = s1.stop
+        else:
+            start = s1.start - 1
+            stop = s2.stop
+    out_bed = '{c}\t{art}\t{op}\t{comment}\t{score}\t.'.format(
+        c=s1.chrom,
+        art=start,
+        op=stop,
+        comment='None',
+        score=10
+        )
+    out_bed_list.append(out_bed)
+    return out_bed_list
+
+
+
+
 
 
 def region_to_bed(gene_list,counter, cutoff=2.0):

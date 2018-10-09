@@ -464,7 +464,8 @@ def get_chrom_lens(in_len):
 
 
 def parse_ks(infile,pid_cutoff,ks_cutoff,syn_len_cutoff, out_file,
-             call,parent='b',strict_ks=True, call_ab=True,qac=True,in_len=None):
+             call,parent='b',strict_ks=True, call_ab=True,qac=True,in_len=None, use_ks=True, write_bog=True,
+             ret_bed = False, ret_dict=False):
     """
 
     :param infile: This the handle for opening DAGChainer output.
@@ -493,7 +494,8 @@ def parse_ks(infile,pid_cutoff,ks_cutoff,syn_len_cutoff, out_file,
             5. _bag_of_genes.tsv. contains all the information for each gene stored in gene in bag variable.
     """
     bag_of_genes_dict = {}
-    chroms_lens = None
+    bed_region_list = []
+    chrom_lens = None
     f = open(infile,'r')
     fout_calls = open('{out_file}_abcalls.tsv'.format(
         out_file=out_file
@@ -515,12 +517,33 @@ def parse_ks(infile,pid_cutoff,ks_cutoff,syn_len_cutoff, out_file,
     for block, body in zip( ks_file[0::2],ks_file[1::2]):
         # we are not using block for this, right now. May want it later.
         body = body.rstrip("\n").split("\n")[1:] # we are dropping the comment line with column names.
-        gene_list = dc_ks_ka_to_bed.ks_body_parser(body)
-        bag_of_genes_dict = parse_gene_list(gene_list,pid_cutoff,ks_cutoff,syn_len_cutoff, bag_of_genes_dict,strict_ks,
+
+        if use_ks == True :
+            gene_list = dc_ks_ka_to_bed.ks_body_parser(body)
+        else:
+            gene_list = dc_ks_ka_to_bed.non_ks_body_parser(body)
+        if ret_dict == True :
+            bag_of_genes_dict = parse_gene_list(gene_list,pid_cutoff,ks_cutoff,syn_len_cutoff, bag_of_genes_dict,strict_ks,
                                             call,
                                             ref=parent)
+        if ret_bed == True :
+            bed_region_list = dc_ks_ka_to_bed.non_ks_region_to_bed(gene_list=gene_list,out_bed_list=bed_region_list)
+
+
     #Now that we have parsed the whole file into a bag of genes we can start comparing genes that pass our cutoffs.
 
+
+    if write_bog is True :
+        write_bog_files(bag_of_genes_dict,chrom_lens,call_ab,fout_calls,fout_total,out_file)
+    if ret_dict == True and ret_bed == False :
+        return bag_of_genes_dict
+    elif ret_dict == False and ret_bed == True :
+        return bed_region_list
+    elif ret_dict == True and ret_bed == True :
+        return [bed_region_list, ret_dict]
+
+
+def write_bog_files(bag_of_genes_dict,chrom_lens,call_ab,fout_calls,fout_total,out_file):
     A_gff_dict = {}
     B_gff_dict = {}
     gff_dict = {}
