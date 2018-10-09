@@ -96,7 +96,7 @@ def parse_gene_list(gene_list,pid_cutoff,ks_cutoff,syn_len_cutoff,bag_of_genes_d
                       We can do this by reading the whole DAGChainer file into memory. then splitting based on `#` then
                       splitting resulting blocks by line breaks. in the case of ks files. gene list == body[1:] because
                       the body comes with its own header that needs discarded.
-    :param pid_cutoff: The percent id cutoff for the mean pid of a syntenic block. I set the default in arparse object.
+    :param pid_cutoff: The percent id cutoff for the mean pid of a syntenic block. I set the default in argparse object.
                        default == 90.0 for this program. This is because we are hunting a recent AB divergence.
     :param ks_cutoff:  maximum acceptable mean ks value for a syntenic block for a gene to be considered. This
                        is really a bit redundant after quota align. But it can be used as a filter. Though it mostly

@@ -14,9 +14,10 @@ ho I put together the test data
 
 """
 
-import dc_tools.dc_ks_bagofgenes as bog
+import dc_tools.dc_ks_bagofgenes as bag
 import viz.data_get as dg
-import
+import dc_tools.dc_ks_ka_to_bed as dkb
+
 
 
 class ReadRegion():
@@ -38,6 +39,32 @@ class ReadRegion():
 
         )
 
+
+def parse_ks_bog_to_dict(infile, call, qac=True, pid_cutoff=50,ks_cutoff=3,syn_len_cutoff=5,strict_ks=False,parent='b'):
+    bag_of_genes_dict = {}
+    chroms_lens = None
+    f = open(infile,'r')
+    ks_file = f.read()
+
+    if qac is False:
+        ks_file = ks_file.rstrip("\n").split('#')[2::]
+    else:
+        ks_file = ks_file.rstrip("\n").replace('\n###','\n#')
+        ks_file = ks_file.split("#")[2::]
+    for block, body in zip( ks_file[0::2],ks_file[1::2]):
+        # we are not using block for this, right now. May want it later.
+        body = body.rstrip("\n").split("\n")[1:] # we are dropping the comment line with column names.
+        gene_list = dkb.ks_body_parser(body)
+        bag_of_genes_dict = bag.parse_gene_list(gene_list,
+                                                pid_cutoff,
+                                                ks_cutoff,
+                                                syn_len_cutoff,
+                                                bag_of_genes_dict,
+                                                strict_ks,
+                                                call,
+                                                ref=parent,
+                                                cutoff=3.0)
+    return bag_of_genes_dict
 
 def read_region(infile):
     """
@@ -124,13 +151,42 @@ def create_seed_dict(region_dict, bog):
                                   'only once. Repeated Region : {g}'.format(g=str(classy_region))
     return [seed_dict, gene_dict]
 
-def add_dagchainer_output_to_seed_dict()
+def add_dagchainer_output_to_seed_dict(seed_dict,gene_dict,add_dict):
+    added_cgene = {}
+    for key in add_dict :
+        for classy_gene in add_dict[key]['pass']:
+            if classy_gene.pgene in gene_dict and \
+                classy_gene.cgene not in added_cgene:
+                ptregion = gene_dict[classy_gene.pgene]
+                # now we can add to seed_dict.
+                seed_dict[ptregion][classy_gene.pgene][classy_gene.ctregion] = {
+                    'region': 'uncalled',
+                    'gene'  : classy_gene
+                }
+                added_cgene[classy_gene.cgene] = [[ptregion,classy_gene.pgene,classy_gene.ctregion,False]]
+            elif classy_gene.pgene in gene_dict and \
+                classy_gene.cgene in added_cgene:
+                added_cgene[classy_gene.cgene].append([ptregion,classy_gene.pgene,classy_gene.ctregion,True])
+                for entry in added_cgene[classy_gene.cgene]:
+                    ptregion, pgene, ctregion,removed = entry
+                    if removed == False :
+                        seed_dict[ptregion][pgene][ctregion] = {
+                    'region': 'uncalled',
+                    'gene'  : 'removed'
+                        }
+                        entry[-1] = True
+    return seed_dict
+
 
 if __name__ == '__main__':
     infile = '/home/ndh0004/code/coge_tools/test_data_cluster/region_calls.tsv'
     bog_in = '/home/ndh0004/code/coge_tools/test_data_cluster/bog28_bag_of_genes.tsv'
     region_dict = read_region(infile)
     bog = dg.read_bag_of_genes_classy(bog_in)
+    addfile = '/home/ndh0004/Downloads/tmp_passthrough_files/' \
+              '28588_52024.CDS-CDS.last.tdd10.cs0.filtered.dag.all.go_D20_g10_A5.aligncoords.qac1.1.50.gcoords.ks'
+
+    call = 'setv'
     """
     Now that we have bog and region_dict we can begin making matches. 
     We will begin by moving through the bog and building a new dict.
@@ -138,16 +194,32 @@ if __name__ == '__main__':
 
     seed_dict, gene_dict = create_seed_dict(region_dict, bog)
 
-    """
+
+
+
+    for call, addfile in zip(['setv','seti','oro'],['/home/ndh0004/Downloads/tmp_passthrough_files/28588_52024.CDS-CDS.last.tdd10.cs0.filtered.dag.all.go_D20_g10_A5.aligncoords.qac1.1.50.gcoords.ks',
+'/home/ndh0004/Downloads/tmp_passthrough_files/28806_52024.CDS-CDS.last.tdd10.cs0.filtered.dag.all.go_D20_g10_A5.aligncoords.qac1.1.50.gcoords.ks',
+'/home/ndh0004/Downloads/tmp_passthrough_files/'
+'51527_52024.CDS-CDS.last.tdd10.cs0.filtered.dag.all.go_D20_g10_A5.aligncoords.qac3.1.50.gcoords.ks']) :
+
+        add_dict = parse_ks_bog_to_dict(addfile, call)
+        print('working on :{c}'.format(c=call), len(add_dict))
+
+        seed_dict = add_dagchainer_output_to_seed_dict(seed_dict,gene_dict,add_dict)
+
+
     for pr in seed_dict : #pr= parent region:
         print(pr, len(seed_dict[pr]))
         for pg in seed_dict[pr]: #pg= parent gene
             out_list = [pg]
             for cg in seed_dict[pr][pg]:
+                if seed_dict[pr][pg][cg]['region'] != 'uncalled':
+                    call = seed_dict[pr][pg][cg]['region'].call
+                else:
+                    call = seed_dict[pr][pg][cg]['gene'].call
                 out_list +=  ['{c}_{g}'.format( g=seed_dict[pr][pg][cg]['gene'].cgene,
-                                                c=seed_dict[pr][pg][cg]['region'].call)]
+                                                c=call)]
             print("\t".join(out_list))
-    """
 
 
     # objectives
