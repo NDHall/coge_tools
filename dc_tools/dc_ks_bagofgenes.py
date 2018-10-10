@@ -507,7 +507,6 @@ def parse_ks(infile,pid_cutoff,ks_cutoff,syn_len_cutoff, out_file,
 
     if type(in_len) == str:
         chrom_lens = get_chrom_lens(in_len)
-        print("in_loop")
 
     if qac is False:
         ks_file = ks_file.rstrip("\n").split('#')[2::]
@@ -522,12 +521,14 @@ def parse_ks(infile,pid_cutoff,ks_cutoff,syn_len_cutoff, out_file,
             gene_list = dc_ks_ka_to_bed.ks_body_parser(body)
         else:
             gene_list = dc_ks_ka_to_bed.non_ks_body_parser(body)
+
         if ret_dict == True :
             bag_of_genes_dict = parse_gene_list(gene_list,pid_cutoff,ks_cutoff,syn_len_cutoff, bag_of_genes_dict,strict_ks,
                                             call,
                                             ref=parent)
-        if ret_bed == True :
+        if ret_bed == True  and len(gene_list) >= syn_len_cutoff :
             bed_region_list = dc_ks_ka_to_bed.non_ks_region_to_bed(gene_list=gene_list,out_bed_list=bed_region_list)
+
 
 
     #Now that we have parsed the whole file into a bag of genes we can start comparing genes that pass our cutoffs.

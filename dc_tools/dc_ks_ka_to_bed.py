@@ -127,10 +127,13 @@ def non_ks_body_parser(body):
     for gene in body:
         org_a_chrom, org_a_region, org_a_start, org_a_stop,\
         org_b_chrom, org_b_region, org_b_start, org_b_stop,\
-        evalue, accumulative_score = gene.split("\t")
+        evalue, *accumulative_score_etc = gene.split("\t") # there are cases where gevolinks are added. this will take care
+                                                       # of that problem by adding it accummulative _score. then We can
+                                                       #remove  Accumulative score
+
         gene_obj = Ks_gene(None, None, org_a_chrom, org_a_region, org_a_start, org_a_stop,
                                    org_b_chrom, org_b_region, org_b_start, org_b_stop,
-                          evalue, accumulative_score)
+                          evalue, accumulative_score_etc)
         #print(gene_obj.ka_is_float,gene_obj.ka,gene_obj.ks,gene_obj.org_a_stop)
         return_list.append(gene_obj)
     return return_list
@@ -142,21 +145,42 @@ def non_ks_region_to_bed(gene_list,out_bed_list):
     bs1 = dc_parse.region_parser(gene_list[0].org_b_region) # regions are unchanged in ks/ka files.
     bs2 = dc_parse.region_parser(gene_list[-1].org_b_region)
     #print(ks,ka)
-    for s1,s2 in zip([as1,bs1],[as2,bs2]):
+    _bed_dict={'a':[],'b':[]}
+    for s1,s2,key in zip([as1,bs1],[as2,bs2],['a','b']):
         if s1.start > s2.start:
             start = s2.start -1
             stop = s1.stop
         else:
             start = s1.start - 1
             stop = s2.stop
-    out_bed = '{c}\t{art}\t{op}\t{comment}\t{score}\t.'.format(
-        c=s1.chrom,
-        art=start,
-        op=stop,
-        comment='None',
-        score=10
-        )
-    out_bed_list.append(out_bed)
+        _bed_dict[key]=[s1.chrom, start,stop]
+
+    comment='{ac}^{astart}^{astop}^{bc}^{bstart}^{bstop}'.format(
+        ac=_bed_dict['a'][0],
+        astart=_bed_dict['a'][1],
+        astop=_bed_dict['a'][2],
+        bc=_bed_dict['b'][0],
+        bstart=_bed_dict['b'][1],
+        bstop=_bed_dict['b'][2]
+    )
+    a_string = '{chrom}\t{start}\t{stop}\t{comment}\t{score}\t{orientation}'.format(
+        chrom=_bed_dict['a'][0],
+        start=_bed_dict['a'][1],
+        stop=_bed_dict['a'][2],
+        comment=comment,
+        score=10,
+        orientation='.'
+    )
+    b_string = '{chrom}\t{start}\t{stop}\t{comment}\t{score}\t{orientation}'.format(
+        chrom=_bed_dict['b'][0],
+        start=_bed_dict['b'][1],
+        stop=_bed_dict['b'][2],
+        comment=comment,
+        score=10,
+        orientation='.'
+    )
+    out_bed = [a_string,b_string]
+    out_bed_list += out_bed
     return out_bed_list
 
 
