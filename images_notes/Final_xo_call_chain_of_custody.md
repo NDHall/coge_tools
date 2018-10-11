@@ -15,9 +15,9 @@ bash
 First we want to begin by getting a list of all AB contigs. 
 I have produced notes on the underlying calls we have made.
 
-![notes_on_AB](:https://github.com/NDHall/coge_tools/blob/master/images_notes/process_for_calling_AvsB.md)
-![notes_on_dc_ksbagofgenes](:https://github.com/NDHall/coge_tools/blob/master/images_notes/notes_dc_ks_bagofgenes.md)
-![notes_on_xo_sep24](:https://github.com/NDHall/coge_tools/blob/master/images_notes/notes_on_xo_sep24.md)
+![notes_on_AB](https://github.com/NDHall/coge_tools/blob/master/images_notes/process_for_calling_AvsB.md)
+![notes_on_dc_ksbagofgenes](https://github.com/NDHall/coge_tools/blob/master/images_notes/notes_dc_ks_bagofgenes.md)
+![notes_on_xo_sep24](https://github.com/NDHall/coge_tools/blob/master/images_notes/notes_on_xo_sep24.md)
 
 
 
