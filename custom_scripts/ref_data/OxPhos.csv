@@ -1,0 +1,217 @@
+#Kegg,desecription
+K00329,NADH dehydrogenase [EC:7.1.1.2]
+K00330,NADH-quinone oxidoreductase subunit A [EC:7.1.1.2]
+K00331,NADH-quinone oxidoreductase subunit B [EC:7.1.1.2]
+K00332,NADH-quinone oxidoreductase subunit C [EC:7.1.1.2]
+K00333,NADH-quinone oxidoreductase subunit D [EC:7.1.1.2]
+K13378,NADH-quinone oxidoreductase subunit C/D [EC:7.1.1.2]
+K13380,NADH-quinone oxidoreductase subunit B/C/D [EC:7.1.1.2]
+K00334,NADH-quinone oxidoreductase subunit E [EC:7.1.1.2]
+K00335,NADH-quinone oxidoreductase subunit F [EC:7.1.1.2]
+K00336,NADH-quinone oxidoreductase subunit G [EC:7.1.1.2]
+K00337,NADH-quinone oxidoreductase subunit H [EC:7.1.1.2]
+K00338,NADH-quinone oxidoreductase subunit I [EC:7.1.1.2]
+K00339,NADH-quinone oxidoreductase subunit J [EC:7.1.1.2]
+K00340,NADH-quinone oxidoreductase subunit K [EC:7.1.1.2]
+K00341,NADH-quinone oxidoreductase subunit L [EC:7.1.1.2]
+K00342,NADH-quinone oxidoreductase subunit M [EC:7.1.1.2]
+K15863,NADH-quinone oxidoreductase subunit L/M [EC:7.1.1.2]
+K00343,NADH-quinone oxidoreductase subunit N [EC:7.1.1.2]
+K05572,NAD(P)H-quinone oxidoreductase subunit 1 [EC:7.1.1.2]
+K05573,NAD(P)H-quinone oxidoreductase subunit 2 [EC:7.1.1.2]
+K05574,NAD(P)H-quinone oxidoreductase subunit 3 [EC:7.1.1.2]
+K05575,NAD(P)H-quinone oxidoreductase subunit 4 [EC:7.1.1.2]
+K05576,NAD(P)H-quinone oxidoreductase subunit 4L [EC:7.1.1.2]
+K05577,NAD(P)H-quinone oxidoreductase subunit 5 [EC:7.1.1.2]
+K05578,NAD(P)H-quinone oxidoreductase subunit 6 [EC:7.1.1.2]
+K05579,NAD(P)H-quinone oxidoreductase subunit H [EC:7.1.1.2]
+K05580,NAD(P)H-quinone oxidoreductase subunit I [EC:7.1.1.2]
+K05581,NAD(P)H-quinone oxidoreductase subunit J [EC:7.1.1.2]
+K05582,NAD(P)H-quinone oxidoreductase subunit K [EC:7.1.1.2]
+K05583,NAD(P)H-quinone oxidoreductase subunit L [EC:7.1.1.2]
+K05584,NAD(P)H-quinone oxidoreductase subunit M [EC:7.1.1.2]
+K05585,NAD(P)H-quinone oxidoreductase subunit N [EC:7.1.1.2]
+K05586,bidirectional [NiFe] hydrogenase diaphorase subunit [EC:7.1.1.2]
+K05587,bidirectional [NiFe] hydrogenase diaphorase subunit [EC:7.1.1.2]
+K05588,bidirectional [NiFe] hydrogenase diaphorase subunit [EC:7.1.1.2]
+K03878,NADH-ubiquinone oxidoreductase chain 1 [EC:7.1.1.2]
+K03879,NADH-ubiquinone oxidoreductase chain 2 [EC:7.1.1.2]
+K03880,NADH-ubiquinone oxidoreductase chain 3 [EC:7.1.1.2]
+K03881,NADH-ubiquinone oxidoreductase chain 4 [EC:7.1.1.2]
+K03882,NADH-ubiquinone oxidoreductase chain 4L [EC:7.1.1.2]
+K03883,NADH-ubiquinone oxidoreductase chain 5 [EC:7.1.1.2]
+K03884,NADH-ubiquinone oxidoreductase chain 6 [EC:7.1.1.2]
+K03934,NADH dehydrogenase (ubiquinone) Fe-S protein 1 [EC:1.6.99.3 7.1.1.2]
+K03935,NADH dehydrogenase (ubiquinone) Fe-S protein 2 [EC:1.6.99.3 7.1.1.2]
+K03936,NADH dehydrogenase (ubiquinone) Fe-S protein 3 [EC:1.6.99.3 7.1.1.2]
+K03937,NADH dehydrogenase (ubiquinone) Fe-S protein 4
+K03938,NADH dehydrogenase (ubiquinone) Fe-S protein 5
+K03939,NADH dehydrogenase (ubiquinone) Fe-S protein 6
+K03940,NADH dehydrogenase (ubiquinone) Fe-S protein 7 [EC:1.6.99.3 7.1.1.2]
+K03941,NADH dehydrogenase (ubiquinone) Fe-S protein 8 [EC:1.6.99.3 7.1.1.2]
+K03942,NADH dehydrogenase (ubiquinone) flavoprotein 1 [EC:1.6.99.3 7.1.1.2]
+K03943,NADH dehydrogenase (ubiquinone) flavoprotein 2 [EC:1.6.99.3 7.1.1.2]
+K03944,NADH dehydrogenase (ubiquinone) flavoprotein 3
+K03945,NADH dehydrogenase (ubiquinone) 1 alpha subcomplex subunit 1
+K03946,NADH dehydrogenase (ubiquinone) 1 alpha subcomplex subunit 2
+K03947,NADH dehydrogenase (ubiquinone) 1 alpha subcomplex subunit 3
+K03948,NADH dehydrogenase (ubiquinone) 1 alpha subcomplex subunit 4
+K03949,NADH dehydrogenase (ubiquinone) 1 alpha subcomplex subunit 5
+K03950,NADH dehydrogenase (ubiquinone) 1 alpha subcomplex subunit 6
+K03951,NADH dehydrogenase (ubiquinone) 1 alpha subcomplex subunit 7
+K03952,NADH dehydrogenase (ubiquinone) 1 alpha subcomplex subunit 8
+K03953,NADH dehydrogenase (ubiquinone) 1 alpha subcomplex subunit 9
+K03954,NADH dehydrogenase (ubiquinone) 1 alpha subcomplex subunit 10
+K03955,NADH dehydrogenase (ubiquinone) 1 alpha/beta subcomplex 1
+K03956,NADH dehydrogenase (ubiquinone) 1 alpha subcomplex subunit 11
+K11352,NADH dehydrogenase (ubiquinone) 1 alpha subcomplex subunit 12
+K11353,NADH dehydrogenase (ubiquinone) 1 alpha subcomplex subunit 13
+K03957,NADH dehydrogenase (ubiquinone) 1 beta subcomplex subunit 1
+K03958,NADH dehydrogenase (ubiquinone) 1 beta subcomplex subunit 2
+K03959,NADH dehydrogenase (ubiquinone) 1 beta subcomplex subunit 3
+K03960,NADH dehydrogenase (ubiquinone) 1 beta subcomplex subunit 4
+K03961,NADH dehydrogenase (ubiquinone) 1 beta subcomplex subunit 5
+K03962,NADH dehydrogenase (ubiquinone) 1 beta subcomplex subunit 6
+K03963,NADH dehydrogenase (ubiquinone) 1 beta subcomplex subunit 7
+K03964,NADH dehydrogenase (ubiquinone) 1 beta subcomplex subunit 8
+K03965,NADH dehydrogenase (ubiquinone) 1 beta subcomplex subunit 9
+K03966,NADH dehydrogenase (ubiquinone) 1 beta subcomplex subunit 10
+K11351,NADH dehydrogenase (ubiquinone) 1 beta subcomplex subunit 11
+K03967,NADH dehydrogenase (ubiquinone) 1 subunit C1
+K03968,NADH dehydrogenase (ubiquinone) 1 subunit C2
+K00356,NADH dehydrogenase [EC:1.6.99.3]
+K03885,NADH dehydrogenase [EC:1.6.99.3]
+K00234,succinate dehydrogenase (ubiquinone) flavoprotein subunit [EC:1.3.5.1]
+K00235,succinate dehydrogenase (ubiquinone) iron-sulfur subunit [EC:1.3.5.1]
+K00236,succinate dehydrogenase (ubiquinone) cytochrome b560 subunit
+K00237,succinate dehydrogenase (ubiquinone) membrane anchor subunit
+K00239,succinate dehydrogenase / fumarate reductase, flavoprotein subunit [EC:1.3.5.4 1.3.5.1]
+K00240,succinate dehydrogenase / fumarate reductase, iron-sulfur subunit [EC:1.3.5.4 1.3.5.1]
+K00241,succinate dehydrogenase / fumarate reductase, cytochrome b subunit
+K00242,succinate dehydrogenase / fumarate reductase, membrane anchor subunit
+K18859,succinate dehydrogenase / fumarate reductase, subunit D
+K18860,putative succinate dehydrogenase / fumarate reductase, subunit D
+K00244,fumarate reductase flavoprotein subunit [EC:1.3.5.4]
+K00245,fumarate reductase iron-sulfur subunit [EC:1.3.5.4]
+K00246,fumarate reductase subunit C
+K00247,fumarate reductase subunit D
+K00411,ubiquinol-cytochrome c reductase iron-sulfur subunit [EC:1.10.2.2]
+K00412,ubiquinol-cytochrome c reductase cytochrome b subunit
+K00413,ubiquinol-cytochrome c reductase cytochrome c1 subunit
+K00410,ubiquinol-cytochrome c reductase cytochrome b/c1 subunit
+K00414,ubiquinol-cytochrome c reductase core subunit 1
+K00415,ubiquinol-cytochrome c reductase core subunit 2
+K00416,ubiquinol-cytochrome c reductase subunit 6
+K00417,ubiquinol-cytochrome c reductase subunit 7
+K00418,ubiquinol-cytochrome c reductase subunit 8
+K00419,ubiquinol-cytochrome c reductase subunit 9
+K00420,ubiquinol-cytochrome c reductase subunit 10
+K03886,menaquinol-cytochrome c reductase iron-sulfur subunit [EC:1.10.2.-]
+K03887,menaquinol-cytochrome c reductase cytochrome b subunit
+K03888,menaquinol-cytochrome c reductase cytochrome b/c subunit
+K03889,ubiquinol-cytochrome c reductase cytochrome c subunit
+K03890,ubiquinol-cytochrome c reductase iron-sulfur subunit
+K03891,ubiquinol-cytochrome c reductase cytochrome b subunit
+K02257,heme o synthase [EC:2.5.1.141]
+K02300,cytochrome o ubiquinol oxidase subunit IV
+K02277,cytochrome c oxidase subunit IV [EC:1.9.3.1]
+K02276,cytochrome c oxidase subunit III [EC:1.9.3.1]
+K02274,cytochrome c oxidase subunit I [EC:1.9.3.1]
+K15408,cytochrome c oxidase subunit I+III [EC:1.9.3.1]
+K02275,cytochrome c oxidase subunit II [EC:1.9.3.1]
+K02262,cytochrome c oxidase subunit 3
+K02256,cytochrome c oxidase subunit 1 [EC:1.9.3.1]
+K02261,cytochrome c oxidase subunit 2
+K02263,cytochrome c oxidase subunit 4
+K02264,cytochrome c oxidase subunit 5a
+K02265,cytochrome c oxidase subunit 5b
+K02266,cytochrome c oxidase subunit 6a
+K02267,cytochrome c oxidase subunit 6b
+K02268,cytochrome c oxidase subunit 6c
+K02269,cytochrome c oxidase subunit 7
+K02270,cytochrome c oxidase subunit 7a
+K02271,cytochrome c oxidase subunit 7b
+K02272,cytochrome c oxidase subunit 7c
+K02273,cytochrome c oxidase subunit 8
+K02258,cytochrome c oxidase assembly protein subunit 11
+K02259,cytochrome c oxidase assembly protein subunit 15
+K02260,cytochrome c oxidase assembly protein subunit 17
+K00404,cytochrome c oxidase cbb3-type subunit I [EC:1.9.3.1]
+K00405,cytochrome c oxidase cbb3-type subunit II
+K15862,cytochrome c oxidase cbb3-type subunit I/II [EC:1.9.3.1]
+K00407,cytochrome c oxidase cbb3-type subunit IV
+K00406,cytochrome c oxidase cbb3-type subunit III
+K02829,cytochrome aa3-600 menaquinol oxidase subunit IV [EC:1.10.3.12]
+K02828,cytochrome aa3-600 menaquinol oxidase subunit III [EC:1.10.3.12]
+K02827,cytochrome aa3-600 menaquinol oxidase subunit I [EC:1.10.3.12]
+K02826,cytochrome aa3-600 menaquinol oxidase subunit II [EC:1.10.3.12]
+K02299,cytochrome o ubiquinol oxidase subunit III
+K02298,cytochrome o ubiquinol oxidase subunit I [EC:1.10.3.10]
+K02297,cytochrome o ubiquinol oxidase subunit II [EC:1.10.3.10]
+K00425,cytochrome bd ubiquinol oxidase subunit I [EC:1.10.3.14]
+K00426,cytochrome bd ubiquinol oxidase subunit II [EC:1.10.3.14]
+K00424,cytochrome bd-I ubiquinol oxidase subunit X [EC:1.10.3.14]
+K22501,cytochrome bd-II ubiquinol oxidase subunit AppX [EC:1.10.3.14]
+K02111,F-type H+/Na+-transporting ATPase subunit alpha [EC:7.2.2.1 7.1.2.2]
+K02112,F-type H+/Na+-transporting ATPase subunit beta [EC:7.2.2.1 7.1.2.2]
+K02115,F-type H+-transporting ATPase subunit gamma
+K02113,F-type H+-transporting ATPase subunit delta
+K02114,F-type H+-transporting ATPase subunit epsilon
+K02108,F-type H+-transporting ATPase subunit a
+K02109,F-type H+-transporting ATPase subunit b
+K02110,F-type H+-transporting ATPase subunit c
+K02132,F-type H+-transporting ATPase subunit alpha
+K02133,F-type H+-transporting ATPase subunit beta [EC:7.1.2.2]
+K02136,F-type H+-transporting ATPase subunit gamma
+K02134,F-type H+-transporting ATPase subunit delta
+K02135,F-type H+-transporting ATPase subunit epsilon
+K02137,F-type H+-transporting ATPase subunit O
+K02126,F-type H+-transporting ATPase subunit a
+K02127,F-type H+-transporting ATPase subunit b
+K02128,F-type H+-transporting ATPase subunit c
+K02138,F-type H+-transporting ATPase subunit d
+K02129,F-type H+-transporting ATPase subunit e
+K01549,F-type H+-transporting ATP synthase subunit e
+K02130,F-type H+-transporting ATPase subunit f
+K02139,F-type H+-transporting ATPase subunit f
+K02140,F-type H+-transporting ATPase subunit g
+K02131,F-type H+-transporting ATPase subunit 6
+K02141,F-type H+-transporting ATPase subunit h
+K02142,F-type H+-transporting ATPase subunit j
+K02143,F-type H+-transporting ATPase subunit k
+K02125,F-type H+-transporting ATPase subunit 8
+K02117,V/A-type H+/Na+-transporting ATPase subunit A [EC:7.2.2.1 7.1.2.2]
+K02118,V/A-type H+/Na+-transporting ATPase subunit B
+K02119,V/A-type H+/Na+-transporting ATPase subunit C
+K02120,V/A-type H+/Na+-transporting ATPase subunit D
+K02121,V/A-type H+/Na+-transporting ATPase subunit E
+K02122,V/A-type H+/Na+-transporting ATPase subunit F
+K02107,V/A-type H+/Na+-transporting ATPase subunit G/H
+K02123,V/A-type H+/Na+-transporting ATPase subunit I
+K02124,V/A-type H+/Na+-transporting ATPase subunit K
+K02145,V-type H+-transporting ATPase subunit A [EC:7.1.2.2]
+K02147,V-type H+-transporting ATPase subunit B
+K02148,V-type H+-transporting ATPase subunit C
+K02149,V-type H+-transporting ATPase subunit D
+K02150,V-type H+-transporting ATPase subunit E
+K02151,V-type H+-transporting ATPase subunit F
+K02152,V-type H+-transporting ATPase subunit G
+K02144,V-type H+-transporting ATPase subunit H
+K02154,V-type H+-transporting ATPase subunit a
+K02155,V-type H+-transporting ATPase 16kDa proteolipid subunit
+K03661,V-type H+-transporting ATPase 21kDa proteolipid subunit
+K02146,V-type H+-transporting ATPase subunit d
+K02153,V-type H+-transporting ATPase subunit e
+K03662,V-type H+-transporting ATPase S1 subunit
+K01535,H+-transporting ATPase [EC:7.1.2.1]
+K01541,H+/K+-exchanging ATPase [EC:3.6.3.10]
+K01542,H+/K+-exchanging ATPase alpha polypeptide [EC:3.6.3.10]
+K01543,H+/K+-exchanging ATPase beta polypeptide [EC:3.6.3.10]
+K01544,non-gastric H+/K+-exchanging ATPase [EC:3.6.3.10]
+K01507,inorganic pyrophosphatase [EC:3.6.1.1]
+K15986,manganese-dependent inorganic pyrophosphatase [EC:3.6.1.1]
+K06019,pyrophosphatase PpaX [EC:3.6.1.1]
+K11725,phospholysine phosphohistidine inorganic pyrophosphate phosphatase [EC:3.1.3.- 3.6.1.1]
+K11726,nucleosome-remodeling factor 38 kDa subunit [EC:3.6.1.1]
+K00937,polyphosphate kinase [EC:2.7.4.1]
+K22468,polyphosphate kinase [EC:2.7.4.1]

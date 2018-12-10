@@ -1,0 +1,64 @@
+#Kegg,desecription
+K02703,photosystem II P680 reaction center D1 protein [EC:1.10.3.9]
+K02704,photosystem II CP47 chlorophyll apoprotein
+K02705,photosystem II CP43 chlorophyll apoprotein
+K02706,photosystem II P680 reaction center D2 protein [EC:1.10.3.9]
+K02707,photosystem II cytochrome b559 subunit alpha
+K02708,photosystem II cytochrome b559 subunit beta
+K02709,photosystem II PsbH protein
+K02710,photosystem II PsbI protein
+K02711,photosystem II PsbJ protein
+K02712,photosystem II PsbK protein
+K02713,photosystem II PsbL protein
+K02714,photosystem II PsbM protein
+K02716,photosystem II oxygen-evolving enhancer protein 1
+K02717,photosystem II oxygen-evolving enhancer protein 2
+K08901,photosystem II oxygen-evolving enhancer protein 3
+K03541,photosystem II 10kDa protein
+K03542,photosystem II 22kDa protein
+K02718,photosystem II PsbT protein
+K02719,photosystem II PsbU protein
+K02720,photosystem II cytochrome c550
+K02721,photosystem II PsbW protein
+K02722,photosystem II PsbX protein
+K02723,photosystem II PsbY protein
+K02724,photosystem II PsbZ protein
+K08902,photosystem II Psb27 protein
+K08903,photosystem II 13kDa protein
+K08904,photosystem II Psb28-2 protein
+K02689,photosystem I P700 chlorophyll a apoprotein A1
+K02690,photosystem I P700 chlorophyll a apoprotein A2
+K02691,photosystem I subunit VII
+K02692,photosystem I subunit II
+K02693,photosystem I subunit IV
+K02694,photosystem I subunit III
+K08905,photosystem I subunit V
+K02695,photosystem I subunit VI
+K02696,photosystem I subunit VIII
+K02697,photosystem I subunit IX
+K02698,photosystem I subunit X
+K02699,photosystem I subunit XI
+K02700,photosystem I subunit XII
+K02701,photosystem I subunit PsaN
+K14332,photosystem I subunit PsaO
+K02702,photosystem I 4.8kDa protein
+K02634,apocytochrome f
+K02635,cytochrome b6
+K02636,cytochrome b6-f complex iron-sulfur subunit [EC:1.10.9.1]
+K02637,cytochrome b6-f complex subunit 4
+K02640,cytochrome b6-f complex subunit 5
+K02642,cytochrome b6-f complex subunit 6
+K02643,cytochrome b6-f complex subunit 7
+K03689,cytochrome b6-f complex subunit 8
+K02638,plastocyanin
+K02639,ferredoxin
+K02641,ferredoxin--NADP+ reductase [EC:1.18.1.2]
+K08906,cytochrome c6
+K02114,F-type H+-transporting ATPase subunit epsilon
+K02112,F-type H+/Na+-transporting ATPase subunit beta [EC:7.2.2.1 7.1.2.2]
+K02115,F-type H+-transporting ATPase subunit gamma
+K02111,F-type H+/Na+-transporting ATPase subunit alpha [EC:7.2.2.1 7.1.2.2]
+K02113,F-type H+-transporting ATPase subunit delta
+K02109,F-type H+-transporting ATPase subunit b
+K02110,F-type H+-transporting ATPase subunit c
+K02108,F-type H+-transporting ATPase subunit a
